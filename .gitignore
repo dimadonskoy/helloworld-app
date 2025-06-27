@@ -1,0 +1,13 @@
+# Build artifacts and installers
+*.run
+*.tar
+
+# OS and editor files
+.DS_Store
+
+# Log files
+*.log
+
+# Git and CI
+.git/
+.github/ 
