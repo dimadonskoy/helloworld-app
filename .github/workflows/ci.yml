@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Lint shell scripts
+        run: |
+          shellcheck install-dependencies.sh
+          shellcheck install-hello-world.sh
+          shellcheck package-with-makeself.sh
+
+      - name: Install cspell (spell checker)
+        run: npm install -g cspell
+
+      - name: Spell check all markdown and scripts
+        run: |
+          cspell --no-progress --config="cspell.json" README.md || true
+          cspell --no-progress --config="cspell.json" *.sh || true
+
+      - name: Make scripts executable
+        run: |
+          chmod +x install-dependencies.sh install-hello-world.sh package-with-makeself.sh
+
+      - name: Build Docker image and save as helloworld-image.tar
+        run: |
+          cd src/helloworld-app
+          docker build --platform=linux/amd64 -t hello-world:local .
+          docker save hello-world:local -o helloworld-image.tar
+          cd ../..
+          mv src/helloworld-app/helloworld-image.tar .
+
+      - name: Package with makeself
+        run: sudo bash package-with-makeself.sh
+
+      - name: Check for makeself installer
+        id: check_makeself
+        run: |
+          if [ -f hello-world-installer.run ]; then
+            echo "found=true" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload makeself installer artifact
+        if: steps.check_makeself.outputs.found == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-world-installer
+          path: hello-world-installer.run 
