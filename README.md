@@ -1,4 +1,4 @@
-# Flask Hello World Offline Installer
+# Sample flask Hello World app with CI (GitHub Actions) and offline installer .
 
 ## Overview
 
@@ -85,7 +85,25 @@ sudo ./hello-world-installer.run
 
 ## CI/CD
 
-- The project uses GitHub Actions (`.github/workflows/ci.yml`) to lint scripts, build and test the Docker image, and package the project with makeself.
+- The project uses GitHub Actions (`.github/workflows/ci.yml`) to:
+  - Lint shell scripts with ShellCheck
+  - Spell check documentation and scripts with cspell
+  - Build and test the Docker image
+  - Package the project with makeself
+  - Upload the offline installer as a workflow artifact
+
+## Spell Checking Configuration
+
+- The workflow uses [cspell](https://cspell.org/) for spell checking.
+- You can customize spell checking by editing or adding a `cspell.json` file in the project root.
+- If no `cspell.json` is present, cspell will use its default settings.
+
+## Troubleshooting
+
+- If a script fails, check for missing files, permissions, or missing dependencies.
+- For CI failures, review the Actions tab on GitHub for detailed logs.
+- If spell checking fails, ensure you have a valid `cspell.json` or adjust the workflow to use cspell defaults.
+- For Docker issues, ensure your offline packages are complete and compatible with your OS version.
 
 ## Requirements
 
