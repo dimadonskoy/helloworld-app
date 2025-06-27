@@ -62,23 +62,9 @@ sudo ./hello-world-installer.run
 
 - The project uses GitHub Actions (`.github/workflows/ci.yml`) to:
   - Lint shell scripts with ShellCheck
-  - Spell check documentation and scripts with cspell
   - Build and test the Docker image
   - Package the project with makeself
   - Upload the offline installer as a workflow artifact
-
-## Spell Checking Configuration
-
-- The workflow uses [cspell](https://cspell.org/) for spell checking.
-- You can customize spell checking by editing or adding a `cspell.json` file in the project root.
-- If no `cspell.json` is present, cspell will use its default settings.
-
-## Troubleshooting
-
-- If a script fails, check for missing files, permissions, or missing dependencies.
-- For CI failures, review the Actions tab on GitHub for detailed logs.
-- If spell checking fails, ensure you have a valid `cspell.json` or adjust the workflow to use cspell defaults.
-- For Docker issues, ensure your offline packages are complete and compatible with your OS version.
 
 ## Requirements
 
