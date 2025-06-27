@@ -99,4 +99,3 @@ sudo ./hello-world-installer.run
 - Run all scripts as root (use `sudo`).
 - The project is designed for full offline use, including Docker and all dependencies.
 - For any issues, check the script output for missing files or permissions.
-
