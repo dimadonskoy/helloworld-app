@@ -1,7 +1,3 @@
-# Build artifacts and installers
-*.run
-*.tar
-
 # OS and editor files
 .DS_Store
 

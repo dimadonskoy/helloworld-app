@@ -17,34 +17,15 @@ jobs:
       - name: Install shellcheck
         run: sudo apt-get update && sudo apt-get install -y shellcheck
 
-      - name: Lint shell scripts
+      - name: Lint deploy.sh script
         run: |
-          shellcheck -e SC1091 install-dependencies.sh
-          shellcheck -e SC1091 install-hello-world.sh
-          shellcheck -e SC1091 package-with-makeself.sh
+          shellcheck -e SC1091 deploy.sh
 
-      - name: Install cspell (spell checker)
-        run: npm install -g cspell
+      - name: Make deploy.sh executable
+        run: chmod +x deploy.sh
 
-      - name: Spell check all markdown and scripts
-        run: |
-          cspell --no-progress --config="cspell.json" README.md || true
-          cspell --no-progress --config="cspell.json" *.sh || true
-
-      - name: Make scripts executable
-        run: |
-          chmod +x install-dependencies.sh install-hello-world.sh package-with-makeself.sh
-
-      - name: Build Docker image and save as helloworld-image.tar
-        run: |
-          cd src/helloworld-app
-          docker build --platform=linux/amd64 -t hello-world:local .
-          docker save hello-world:local -o helloworld-image.tar
-          cd ../..
-          mv src/helloworld-app/helloworld-image.tar .
-
-      - name: Package with makeself
-        run: sudo bash package-with-makeself.sh
+      - name: Run deploy.sh (build, load, and package)
+        run: sudo bash deploy.sh
 
       - name: Check for makeself installer
         id: check_makeself
