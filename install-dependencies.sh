@@ -11,7 +11,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 ############################ GLOBAL VARS ##############################
 # Check if user is root
 if [ "$EUID" -ne 0 ]; then
