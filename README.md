@@ -47,14 +47,14 @@ sudo bash deploy.sh
 - Installs `makeself` if needed.
 - Loads the Docker image from `src/helloworld-app/helloworld-image.tar` if present, or builds it from the Dockerfile.
 - Runs the Flask app container on port 8090.
-- Packages the project into a self-extracting installer (`hello-world-installer.run`).
+- Packages the project into a self-extracting installer (`helloworld-installer.run`).
 
 The app will be available at [http://localhost:8090/](http://localhost:8090/)
 
 ### 3. Use the Self-Extracting Installer (Offline)
 
 ```sh
-sudo ./hello-world-installer.run
+sudo ./helloworld-installer.run
 ```
 - Extracts all project files for offline setup and use.
 
